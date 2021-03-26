@@ -10,11 +10,11 @@
     <EditText
         android:id="@+id/name"
         android:layout_width="363dp"
-        android:layout_height="52dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="20dp"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
@@ -30,9 +30,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="215dp"
+        android:layout_marginTop="210dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="35dp"
         android:hint="@string/prompt_email"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
@@ -101,15 +101,47 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="67dp"
-        android:layout_marginEnd="311dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="320dp"
         android:layout_marginBottom="26dp"
         android:text="Restaurant"
         app:layout_constraintBottom_toTopOf="@+id/restaurantName"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password" />
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="163dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginEnd="144dp"
+        android:layout_marginBottom="91dp"
+        android:text="Register"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/restaurantLocation"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/restaurantLocation"
+        android:layout_width="355dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:ems="10"
+        android:hint="Location"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/restaurantName" />
 
     <EditText
         android:id="@+id/restaurantName"
@@ -124,36 +156,9 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/restaurantLocation"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <EditText
-        android:id="@+id/restaurantLocation"
-        android:layout_width="355dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="24dp"
-        android:ems="10"
-        android:hint="Location"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/restaurantName" />
-
-    <Button
-        android:id="@+id/register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="163dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="144dp"
-        android:layout_marginBottom="81dp"
-        android:text="Register"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/restaurantLocation" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

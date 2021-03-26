@@ -23,6 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.epickup.HomeActivity;
 import com.example.epickup.R;
 import com.example.epickup.register;
 
@@ -113,9 +114,11 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadingProgressBar.setVisibility(View.VISIBLE);
-                loginViewModel.login(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
+//                loadingProgressBar.setVisibility(View.VISIBLE);
+//                loginViewModel.login(usernameEditText.getText().toString(),
+//                        passwordEditText.getText().toString());
+                Intent goIntent = new Intent(LoginActivity.this, HomeActivity.class);
+                startActivity(goIntent);
             }
         });
 
