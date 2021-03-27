@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileActivity">
+
+    <EditText
+        android:id="@+id/profileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="101dp"
+        android:layout_marginBottom="15dp"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        android:text="chinmay"
+        app:layout_constraintBottom_toTopOf="@+id/profileEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/profileEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="101dp"
+        android:layout_marginBottom="15dp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textPersonName"
+        android:text="chinmay@gmail.com"
+        app:layout_constraintBottom_toTopOf="@+id/profilePassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileName" />
+
+    <EditText
+        android:id="@+id/profilePassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="97dp"
+        android:layout_marginBottom="15dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:text="asd12"
+        app:layout_constraintBottom_toTopOf="@+id/profileRestaurantName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileEmail" />
+
+    <EditText
+        android:id="@+id/profileRestaurantName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="106dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="95dp"
+        android:layout_marginBottom="16dp"
+        android:ems="10"
+        android:hint="Restaurant Name"
+        android:inputType="textPersonName"
+        android:text="Dallas Pizza"
+        app:layout_constraintBottom_toTopOf="@+id/profileRestaurantLocation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profilePassword" />
+
+    <EditText
+        android:id="@+id/profileRestaurantLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="106dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="95dp"
+        android:layout_marginBottom="16dp"
+        android:ems="10"
+        android:hint="Restaurant Location"
+        android:inputType="textPersonName"
+        android:text="Dallas, Texas"
+        app:layout_constraintBottom_toTopOf="@+id/profileUpdate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileRestaurantName" />
+
+    <Button
+        android:id="@+id/profileUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="154dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="166dp"
+        android:layout_marginBottom="144dp"
+        android:text="Update"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileRestaurantLocation" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
