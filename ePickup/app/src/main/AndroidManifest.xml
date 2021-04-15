@@ -15,7 +15,7 @@
             android:label="View Orders" />
         <activity
             android:name=".AddOrEditItemsActivity"
-            android:label="Edit Items" />
+            android:label="Add or Edit Items" />
         <activity
             android:name=".ProfileActivity"
             android:label="Profile" />

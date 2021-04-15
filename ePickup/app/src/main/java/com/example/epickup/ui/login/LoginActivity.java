@@ -23,6 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.epickup.DatabaseHelper;
 import com.example.epickup.HomeActivity;
 import com.example.epickup.R;
 import com.example.epickup.register;
@@ -30,6 +31,7 @@ import com.example.epickup.register;
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
+    DatabaseHelper databaseHelper;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,8 @@ public class LoginActivity extends AppCompatActivity {
         final Button loginButton = findViewById(R.id.login);
         final Button registerButton = findViewById(R.id.registerNow);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+
+        databaseHelper = new DatabaseHelper(LoginActivity.this);
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override

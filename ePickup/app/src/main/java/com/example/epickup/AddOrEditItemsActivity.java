@@ -23,6 +23,10 @@ public class AddOrEditItemsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_or_edit_items);
 
 
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        final Button editItemsUpdateButton = findViewById(R.id.editItemsUpdateButton);
+
         final FloatingActionButton addButton = findViewById(R.id.addItemsButton);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -35,8 +39,22 @@ public class AddOrEditItemsActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 m_Text = input.getText().toString();
-                finish();
-                startActivity(getIntent());
+//                finish();
+//                startActivity(getIntent());
+
+                alertDialogBuilder.setMessage("Item successfully added.");
+                alertDialogBuilder.setPositiveButton("OKAY", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1)
+                    {
+//                        Intent loginIntent = new Intent(AddOrEditItemsActivity.this, AddOrEditItemsActivity.class);
+//                        startActivity(loginIntent);
+                    }
+                });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -57,6 +75,32 @@ public class AddOrEditItemsActivity extends AppCompatActivity {
                 builder.show();
             }
     });
+
+
+        editItemsUpdateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                alertDialogBuilder.setMessage("Item successfully edited.");
+                alertDialogBuilder.setPositiveButton("OKAY", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1)
+                    {
+//                        Intent loginIntent = new Intent(AddOrEditItemsActivity.this, AddOrEditItemsActivity.class);
+//                        startActivity(loginIntent);
+                    }
+                });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+
+
+            }
+        });
+
+
+
+
+
     }
 
 
