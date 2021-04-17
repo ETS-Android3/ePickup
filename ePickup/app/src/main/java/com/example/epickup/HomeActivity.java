@@ -1,24 +1,25 @@
 package com.example.epickup;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.epickup.ui.login.LoginActivity;
+import com.example.epickup.DatabaseHelper;
 
 public class HomeActivity extends AppCompatActivity {
+    DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
+        databaseHelper = new DatabaseHelper(HomeActivity.this);
 
         final Button logoutButton = findViewById(R.id.logoutButton);
         final Button profileButton = findViewById(R.id.viewProfileButton);
@@ -30,8 +31,14 @@ public class HomeActivity extends AppCompatActivity {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                Intent goIntent = new Intent(HomeActivity.this, LoginActivity.class);
-                startActivity(goIntent);
+                DatabaseHelper databaseHelper = new DatabaseHelper(HomeActivity.this);
+                boolean logoutSuccess = databaseHelper.logout(true);
+                if(logoutSuccess) {
+                    Intent goIntent = new Intent(HomeActivity.this, LoginActivity.class);
+                    startActivity(goIntent);
+                } else {
+                    Toast.makeText(getApplicationContext(),"Logout Failed.",Toast.LENGTH_LONG).show();
+                }
             }
         });
 

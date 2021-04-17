@@ -1,17 +1,9 @@
 package com.example.epickup.ui.login;
 
 import android.app.Activity;
-
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -23,6 +15,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.epickup.DatabaseHelper;
 import com.example.epickup.HomeActivity;
 import com.example.epickup.R;
@@ -32,6 +30,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
     DatabaseHelper databaseHelper;
+    SharedPreferences sp;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,13 +40,15 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
+
+//        databaseHelper = new DatabaseHelper(LoginActivity.this);
+
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
         final Button registerButton = findViewById(R.id.registerNow);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
 
-        databaseHelper = new DatabaseHelper(LoginActivity.this);
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -121,8 +123,17 @@ public class LoginActivity extends AppCompatActivity {
 //                loadingProgressBar.setVisibility(View.VISIBLE);
 //                loginViewModel.login(usernameEditText.getText().toString(),
 //                        passwordEditText.getText().toString());
-                Intent goIntent = new Intent(LoginActivity.this, HomeActivity.class);
-                startActivity(goIntent);
+
+                String[] creds = new String[] {usernameEditText.getText().toString(),passwordEditText.getText().toString()};
+                DatabaseHelper databaseHelper = new DatabaseHelper(LoginActivity.this);
+                boolean login_success = databaseHelper.login(creds);
+                if(login_success){
+                    Intent goIntent = new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(goIntent);
+                } else {
+                    Toast.makeText(getApplicationContext(),"Credentials invalid.",Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
@@ -133,6 +144,16 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(registerIntent);
             }
         });
+
+        SharedPreferences sp = getSharedPreferences("sp",MODE_PRIVATE);
+        String userObjectString = sp.getString("userObject", String.valueOf(MODE_PRIVATE));
+        if(userObjectString.equals("0")){
+
+        } else{
+            Intent goIntent = new Intent(LoginActivity.this, HomeActivity.class);
+            startActivity(goIntent);
+        }
+
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
