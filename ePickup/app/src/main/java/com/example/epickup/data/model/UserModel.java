@@ -4,16 +4,16 @@ public class UserModel {
 
     private int Id;
     private int RoleId;
-    private int RestaurantID;
+    private int RestaurantId;
     private String Name;
     private String Email;
     private String Password;
     private int CurrentLogin;
 
-    public UserModel(int id, int roleId, int restaurantID, String name, String email, String password, int currentLogin) {
+    public UserModel(int id, int roleId, int restaurantId, String name, String email, String password, int currentLogin) {
         Id = id;
         RoleId = roleId;
-        RestaurantID = restaurantID;
+        RestaurantId = restaurantId;
         Name = name;
         Email = email;
         Password = password;
@@ -25,7 +25,7 @@ public class UserModel {
         return "UserModel{" +
                 "Id=" + Id +
                 ", RoleId=" + RoleId +
-                ", RestaurantID=" + RestaurantID +
+                ", RestaurantId=" + RestaurantId +
                 ", Name='" + Name + '\'' +
                 ", Email='" + Email + '\'' +
                 ", Password='" + Password + '\'' +
@@ -49,12 +49,12 @@ public class UserModel {
         RoleId = roleId;
     }
 
-    public int getRestaurantID() {
-        return RestaurantID;
+    public int getRestaurantId() {
+        return RestaurantId;
     }
 
-    public void setRestaurantID(int restaurantID) {
-        RestaurantID = restaurantID;
+    public void setRestaurantId(int restaurantId) {
+        RestaurantId = restaurantId;
     }
 
     public String getName() {

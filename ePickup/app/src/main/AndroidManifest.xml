@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EPickup">
-        <activity android:name=".SearchRestaurantActivity" android:label="Search Restaurant"></activity>
+        <activity android:name=".OrdersReceivedActivity"></activity>
+        <activity
+            android:name=".SearchRestaurantActivity"
+            android:label="Search Restaurant" />
         <activity
             android:name=".ViewOrdersActivity"
             android:label="View Orders" />

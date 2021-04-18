@@ -25,6 +25,7 @@ public class HomeActivity extends AppCompatActivity {
         final Button profileButton = findViewById(R.id.viewProfileButton);
         final Button addOrEditItemsButton = findViewById(R.id.addOrEditItemsButton);
         final Button viewOrdersButton = findViewById(R.id.viewOrdersButton);
+        final Button ordersReceivedButton = findViewById(R.id.ordersReceivedButton);
         final Button searchRestaurantButton = findViewById(R.id.searchRestaurantButton);
 
 
@@ -67,6 +68,14 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        ordersReceivedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent goIntent = new Intent(HomeActivity.this, OrdersReceivedActivity.class);
+                startActivity(goIntent);
+            }
+        });
+
         searchRestaurantButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -75,5 +84,13 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+        System.exit(0);
     }
 }
