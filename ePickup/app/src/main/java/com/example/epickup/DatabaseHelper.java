@@ -273,6 +273,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     } while (cursor3.moveToNext());
                 }
 
+                jsonObject = new JSONObject();
                 try {
                     jsonObject.put("restaurantName", restaurantName);
                     jsonObject.put("orderId", id);
@@ -361,6 +362,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     } while (cursor3.moveToNext());
                 }
 
+                jsonObject = new JSONObject();
                 try {
                     jsonObject.put("orderId", id);
                     jsonObject.put("orderMenu", orderMenuString);
@@ -389,6 +391,85 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db2.close();
         return true;
     }
+
+
+    public List allItems(){
+        List<JSONObject> retObj = new ArrayList<>();
+        JSONObject jsonObject = new JSONObject();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<OrderModel> orderList = new ArrayList<>();
+        List<RestaurantModel> restaurantList = new ArrayList<>();
+
+        String jsonString = sp.getString("userObject", String.valueOf(MODE_PRIVATE));
+        UserModel uM = gson.fromJson(jsonString, UserModel.class);
+//        Log.e("restId", String.valueOf(uM.getRestaurantId()));
+
+        String query = "SELECT * FROM MENUITEM where RestaurantId = ?";
+        String[] args = {String.valueOf(uM.getRestaurantId())};
+        Cursor cursor = db.rawQuery(query, args);
+        if(cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(0);
+                int restId = cursor.getInt(1);
+                String name = cursor.getString(2);
+
+                jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("Id", id);
+                    jsonObject.put("RestaurantId", restId);
+                    jsonObject.put("Name", name);
+                    retObj.add(jsonObject);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            } while (cursor.moveToNext());
+        }
+
+        return retObj;
+    }
+
+
+    public boolean addItem(String name){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String jsonString = sp.getString("userObject", String.valueOf(MODE_PRIVATE));
+        UserModel uM = gson.fromJson(jsonString, UserModel.class);
+
+        String query = "INSERT INTO  MENUITEM (RestaurantId,Name) VALUES (?,?)";
+        db.execSQL(query,new String[]{String.valueOf(uM.getRestaurantId()),name});
+
+        db.close();
+
+        return true;
+    }
+
+    public boolean deleteItem(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+//        String jsonString = sp.getString("userObject", String.valueOf(MODE_PRIVATE));
+//        UserModel uM = gson.fromJson(jsonString, UserModel.class);
+
+        String query = "DELETE FROM MENUITEM WHERE Id = ?";
+        db.execSQL(query,new String[]{String.valueOf(id)});
+
+        db.close();
+
+        return true;
+    }
+
+
+    public boolean editItem(int Id, String Name){
+        SQLiteDatabase db2 = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("Name",Name);
+        db2.update("MENUITEM", cv, "Id = ?", new String[]{String.valueOf(Id)});
+        db2.close();
+
+        return true;
+    }
+
 
     public String selectAllUser() {
         SQLiteDatabase db = this.getReadableDatabase();
