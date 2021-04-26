@@ -20,6 +20,10 @@ public class OrdersReceivedActivity extends AppCompatActivity {
 
         databaseHelper = new DatabaseHelper(OrdersReceivedActivity.this);
 
+        reloadList();
+    }
+
+    public void reloadList(){
         final ListView ordersReceivedView = (ListView) findViewById(R.id.ordersReceivedView);
 
         ArrayList<JSONObject> receivedOrder = (ArrayList<JSONObject>) databaseHelper.receivedOrder();

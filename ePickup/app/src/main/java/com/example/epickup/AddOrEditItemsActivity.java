@@ -9,6 +9,7 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -54,16 +55,27 @@ public class AddOrEditItemsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 AlertDialog.Builder builder = new AlertDialog.Builder(AddOrEditItemsActivity.this);
-                final EditText input = new EditText(AddOrEditItemsActivity.this);
 
+                LinearLayout lila1= new LinearLayout(AddOrEditItemsActivity.this);
+                lila1.setOrientation(LinearLayout.VERTICAL);
+                final EditText input0 = new EditText(AddOrEditItemsActivity.this);
+                final EditText input1 = new EditText(AddOrEditItemsActivity.this);
+                input0.setHint("Item Name");
+                input1.setHint("Item Cost");
+                lila1.addView(input0);
+                lila1.addView(input1);
+                builder.setView(lila1);
                 builder.setTitle("Add Item:");
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
-                builder.setView(input);
+//                input.setInputType(InputType.TYPE_CLASS_TEXT);
+//                builder.setView(input);
+//                input2.setInputType(InputType.TYPE_CLASS_TEXT);
+//                builder.setView(input2);
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String addItemName = input.getText().toString();
-                        databaseHelper.addItem(addItemName);
+                        String addItemName = input0.getText().toString();
+                        String addItemCost = input1.getText().toString();
+                        databaseHelper.addItem(addItemName,addItemCost);
                         reloadList();
                         Toast.makeText(AddOrEditItemsActivity.this,"Item successfully added.",Toast.LENGTH_LONG).show();
                     }

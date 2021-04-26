@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:text="Dallas Pizza"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            />
 
         <TextView
             android:id="@+id/textView7"

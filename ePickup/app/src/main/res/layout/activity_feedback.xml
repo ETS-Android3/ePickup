@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".feedbackActivity">
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="264dp"
+        android:layout_height="71dp"
+        android:layout_marginTop="56dp"
+        android:gravity="center_horizontal"
+        android:text="We hope you enjoyed our service with us today. Please Provide Feedback"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/ratingBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:rating="5"
+        android:stepSize="1"
+        app:layout_constraintBottom_toTopOf="@+id/ratingres"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView14"
+
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/ratingres"
+        android:layout_width="178dp"
+        android:layout_height="53dp"
+        android:layout_marginBottom="52dp"
+        android:text="Awesome. I love it"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/feedback"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+
+    <EditText
+        android:id="@+id/feedback"
+        android:layout_width="299dp"
+        android:layout_height="79dp"
+        android:hint="Tell us what you loved"
+        android:inputType="textMultiLine"
+        android:lines="5"
+        android:gravity="top"
+        app:layout_constraintBottom_toTopOf="@+id/fBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ratingres" />
+
+    <Button
+        android:id="@+id/fBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#e57373"
+        android:text="Send feedback"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/feedback" />
+</androidx.constraintlayout.widget.ConstraintLayout>

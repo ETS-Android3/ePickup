@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,7 +54,8 @@ public class AddOrEditItemsAdapter extends ArrayAdapter<JSONObject>{
         try {
             TextView name = (TextView) listItem.findViewById(R.id.textView8);
             name.setText(String.valueOf(currentItem.get("Name")));
-
+            TextView cost = (TextView) listItem.findViewById(R.id.textView9);
+            cost.setText(String.valueOf(currentItem.get("Cost")));
 
             Button deleteItemButton = listItem.findViewById(R.id.deleteItemButton);
             deleteItemButton.setOnClickListener(new View.OnClickListener() {
@@ -78,19 +80,28 @@ public class AddOrEditItemsAdapter extends ArrayAdapter<JSONObject>{
                 public void onClick(View v){
                     try {
                         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                        final EditText input = new EditText(mContext);
+                        LinearLayout lila1= new LinearLayout(mContext);
+                        lila1.setOrientation(LinearLayout.VERTICAL);
+                        final EditText input0 = new EditText(mContext);
+                        final EditText input1 = new EditText(mContext);
+                        input0.setHint("Item Name");
+                        input1.setHint("Item Cost");
+                        lila1.addView(input0);
+                        lila1.addView(input1);
+                        builder.setView(lila1);
 
                         builder.setTitle("Add Item:");
-                        input.setInputType(InputType.TYPE_CLASS_TEXT);
                         String itemName = (String) currentItem.get("Name");
-                        input.setText(itemName);
-                        builder.setView(input);
+                        input0.setText(itemName);
+                        String itemCost = (String) currentItem.get("Cost");
+                        input1.setText(itemCost);
                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                String editItemName = input.getText().toString();
+                                String editItemName = input0.getText().toString();
+                                String editItemCost = input1.getText().toString();
                                 try {
-                                    databaseHelper.editItem((Integer) currentItem.get("Id"),editItemName);
+                                    databaseHelper.editItem((Integer) currentItem.get("Id"),editItemName,editItemCost);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }

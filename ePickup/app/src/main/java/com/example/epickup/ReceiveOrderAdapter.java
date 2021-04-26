@@ -23,8 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReceiveOrderAdapter extends ArrayAdapter<JSONObject> {
-
-
     private Context mContext;
     private List<JSONObject> orderList = new ArrayList<>();
     DatabaseHelper databaseHelper;
@@ -60,8 +58,19 @@ public class ReceiveOrderAdapter extends ArrayAdapter<JSONObject> {
             estimatedTime.setText("Estimated Pickup By: " + String.valueOf(currentOrder.get("estimatedTime")));
             TextView time = (TextView) listItem.findViewById(R.id.textView5);
             time.setText("Latest Pickup By: " + currentOrder.get("time"));
+            TextView feedbackRating = (TextView) listItem.findViewById(R.id.textView9);
+            int fR = Integer.valueOf((String) currentOrder.get("feedbackRating"));
+            if(fR != -1){
+                feedbackRating.setText("Feedback Rating: " + currentOrder.get("feedbackRating") + "/5");
+            } else {
+                feedbackRating.setText("Feedback Rating: ");
+            }
 
+            TextView feedbackMessage = (TextView) listItem.findViewById(R.id.textView11);
+            feedbackMessage.setText("Feedback: " + currentOrder.get("feedbackMessage"));
 
+            TextView payment = (TextView) listItem.findViewById(R.id.textView10);
+            payment.setText("Total: $" + currentOrder.get("payment"));
 
             Button preparedButton = listItem.findViewById(R.id.preparedButton);
             if(currentOrder.get("status").equals("Prepared")){
@@ -73,6 +82,9 @@ public class ReceiveOrderAdapter extends ArrayAdapter<JSONObject> {
                     try {
                         databaseHelper.changeOrderStatus((Integer) currentOrder.get("orderId"));
                         preparedButton.setEnabled(false);
+                        if (mContext instanceof OrdersReceivedActivity) {
+                            ((OrdersReceivedActivity)mContext).reloadList();
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     };

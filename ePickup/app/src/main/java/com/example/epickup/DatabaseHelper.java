@@ -62,9 +62,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String createUserTable = "CREATE TABLE USER (Id INTEGER PRIMARY KEY AUTOINCREMENT, RoleId INTEGER, RestaurantID INTEGER, Name TEXT, Email TEXT, Password TEXT, CurrentLogin INTEGER)";
         String createRoleTable = "CREATE TABLE ROLE (Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT)";
         String createRestaurantTable = "CREATE TABLE RESTAURANT (Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Location TEXT)";
-        String createOrderTable = "CREATE TABLE ORDERS (Id INTEGER PRIMARY KEY AUTOINCREMENT, RestaurantId INTEGER, UserId INTEGER, Payment INTEGER, Status TEXT, EstimatedTime TEXT, Time TEXT, Feedback TEXT)";
+        String createOrderTable = "CREATE TABLE ORDERS (Id INTEGER PRIMARY KEY AUTOINCREMENT, RestaurantId INTEGER, UserId INTEGER, Payment TEXT, Status TEXT, EstimatedTime TEXT, Time TEXT, FeedbackRating INTEGER, FeedbackMessage TEXT)";
         String createOrderItemTable = "CREATE TABLE ORDERITEM (Id INTEGER PRIMARY KEY AUTOINCREMENT, MenuItemId INTEGER, OrderId INTEGER, Quantity INTEGER)";
-        String MenuItemTable = "CREATE TABLE MENUITEM (Id INTEGER PRIMARY KEY AUTOINCREMENT, RestaurantId INTEGER, Name TEXT)";
+        String MenuItemTable = "CREATE TABLE MENUITEM (Id INTEGER PRIMARY KEY AUTOINCREMENT, RestaurantId INTEGER, Name TEXT, Cost TEXT)";
 
         String[] createTables = new String[]{createUserTable, createRoleTable, createRestaurantTable, createOrderTable, createOrderItemTable, MenuItemTable};
 
@@ -78,12 +78,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
         // Dummy Data
-        String insertMenu = "INSERT INTO  MENUITEM (Id, RestaurantId, Name) VALUES (?,?,?)";
-        db.execSQL(insertMenu,new Object[]{1, 1, "item1"});
-        db.execSQL(insertMenu,new Object[]{2, 1, "item2"});
+        String insertMenu = "INSERT INTO  MENUITEM (Id, RestaurantId, Name, Cost) VALUES (?,?,?,?)";
+        db.execSQL(insertMenu,new Object[]{1, 1, "item1", "5"});
+        db.execSQL(insertMenu,new Object[]{2, 1, "item2", "4"});
 
-        String insertOrder = "INSERT INTO  Orders (Id, RestaurantId, UserId, Payment, Status, EstimatedTime, Time, Feedback) VALUES (?,?,?,?,?,?,?,?)";
-        db.execSQL(insertOrder,new Object[]{1, 1, 3, 50, "accepted", "estimatedTime1", "time1", "feedback1"});
+        DateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        String currentDateTime = format.format(new Date());
+        String insertOrder = "INSERT INTO  Orders (Id, RestaurantId, UserId, Payment, Status, EstimatedTime, Time, FeedbackRating, FeedbackMessage) VALUES (?,?,?,?,?,?,?,?,?)";
+        db.execSQL(insertOrder,new Object[]{1, 1, 2, "50", "accepted", currentDateTime, "", -1, ""});
 
         String insertOrderItem = "INSERT INTO  ORDERITEM (Id, MenuItemId, OrderId, Quantity) VALUES (?,?,?,?)";
         db.execSQL(insertOrderItem,new Object[]{1, 1, 1, 2});
@@ -153,13 +155,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             int currLogin = cursor.getInt(6);
 
             UserModel userModel = new UserModel(id, roleId, restaurantId, name, email, password, currLogin);
-//            Gson gson = new Gson();
-
             String jsonString = gson.toJson(userModel);
-
-//            UserModel uM = gson.fromJson(jsonString, UserModel.class);
-
-//            SharedPreferences sp = context.getSharedPreferences("sp", MODE_PRIVATE);
             SharedPreferences.Editor editor = sp.edit();
             editor.putString("userObject", jsonString);
             editor.commit();
@@ -226,13 +222,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 int id = cursor.getInt(0);
                 int restaurantId = cursor.getInt(1);
 //                int UserId = cursor.getInt(2);
-//                int payment = cursor.getInt(3);
+                String payment = cursor.getString(3);
                 String status = cursor.getString(4);
                 String estimatedTime = cursor.getString(5);
                 String time = cursor.getString(6);
-//                String feedback = cursor.getString(7);
-//                OrderModel orderModel = new OrderModel(id, restaurantId, UserId, payment, status, time, feedback);
-//                orderList.add(orderModel);
+                int feedbackRating = cursor.getInt(7);
 
 
                 String query2 = "SELECT * FROM RESTAURANT where Id = ?";
@@ -281,6 +275,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     jsonObject.put("status", status);
                     jsonObject.put("estimatedTime", estimatedTime);
                     jsonObject.put("time", time);
+                    jsonObject.put("feedbackRating", feedbackRating);
+                    jsonObject.put("payment", payment);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -305,7 +301,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String jsonString = sp.getString("userObject", String.valueOf(MODE_PRIVATE));
         UserModel uM = gson.fromJson(jsonString, UserModel.class);
-        Log.e("restId", String.valueOf(uM.getRestaurantId()));
 
         String query = "SELECT * FROM Orders where RestaurantId = ?";
         String[] args = {String.valueOf(uM.getRestaurantId())};
@@ -316,12 +311,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 int restaurantId = cursor.getInt(1);
 //                int UserId = cursor.getInt(2);
 //                int payment = cursor.getInt(3);
+                String payment = cursor.getString(3);
                 String status = cursor.getString(4);
                 String estimatedTime = cursor.getString(5);
                 String time = cursor.getString(6);
-//                String feedback = cursor.getString(7);
-//                OrderModel orderModel = new OrderModel(id, restaurantId, UserId, payment, status, time, feedback);
-//                orderList.add(orderModel);
+                String feedbackRating = cursor.getString(7);
+                String feedbackMessage = cursor.getString(8);
 
 
 //                String query2 = "SELECT * FROM RESTAURANT where Id = ?";
@@ -335,7 +330,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 ////                        RestaurantModel restaurantModel = new RestaurantModel(restId, restaurantName, restaurantLoc);
 ////                        restaurantList.add(restaurantModel);
 //                }
-                Log.e("OrderId",String.valueOf(id));
                 String query3 = "SELECT * FROM ORDERITEM where OrderId = ?";
                 String[] args3 = {String.valueOf(id)};
                 Cursor cursor3 = db.rawQuery(query3, args3);
@@ -369,7 +363,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     jsonObject.put("status", status);
                     jsonObject.put("estimatedTime", estimatedTime);
                     jsonObject.put("time", time);
-                    Log.e("jsonObj",String.valueOf(jsonObject));
+                    jsonObject.put("feedbackRating", feedbackRating);
+                    jsonObject.put("feedbackMessage", feedbackMessage);
+                    jsonObject.put("payment", payment);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -386,9 +382,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean changeOrderStatus(int id) {
         SQLiteDatabase db2 = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("Status", "Prepared");
-        db2.update("Orders", cv, "Id = ?", new String[]{String.valueOf(id)});
-        db2.close();
+        try {
+            final long millisToAdd = 3_600_000; //one hour
+            DateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            String currentDateTime = format.format(new Date());
+            Date d = format.parse(currentDateTime);
+            d.setTime(d.getTime() + millisToAdd);
+            String oneHrAddedString = format.format(d);
+
+            cv.put("Status", "Prepared");
+            cv.put("Time", oneHrAddedString);
+            db2.update("Orders", cv, "Id = ?", new String[]{String.valueOf(id)});
+            db2.close();
+        } catch (ParseException e){
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
 
@@ -403,7 +412,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String jsonString = sp.getString("userObject", String.valueOf(MODE_PRIVATE));
         UserModel uM = gson.fromJson(jsonString, UserModel.class);
-//        Log.e("restId", String.valueOf(uM.getRestaurantId()));
 
         String query = "SELECT * FROM MENUITEM where RestaurantId = ?";
         String[] args = {String.valueOf(uM.getRestaurantId())};
@@ -413,12 +421,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 int id = cursor.getInt(0);
                 int restId = cursor.getInt(1);
                 String name = cursor.getString(2);
+                String cost = cursor.getString(3);
 
                 jsonObject = new JSONObject();
                 try {
                     jsonObject.put("Id", id);
                     jsonObject.put("RestaurantId", restId);
                     jsonObject.put("Name", name);
+                    jsonObject.put("Cost", cost);
                     retObj.add(jsonObject);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -431,14 +441,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean addItem(String name){
+    public boolean addItem(String name, String cost){
         SQLiteDatabase db = this.getWritableDatabase();
 
         String jsonString = sp.getString("userObject", String.valueOf(MODE_PRIVATE));
         UserModel uM = gson.fromJson(jsonString, UserModel.class);
 
-        String query = "INSERT INTO  MENUITEM (RestaurantId,Name) VALUES (?,?)";
-        db.execSQL(query,new String[]{String.valueOf(uM.getRestaurantId()),name});
+        String query = "INSERT INTO  MENUITEM (RestaurantId,Name,Cost) VALUES (?,?,?)";
+        db.execSQL(query,new String[]{String.valueOf(uM.getRestaurantId()),name,cost});
 
         db.close();
 
@@ -460,15 +470,112 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean editItem(int Id, String Name){
+    public boolean editItem(int Id, String Name, String Cost){
         SQLiteDatabase db2 = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("Name",Name);
+        cv.put("Cost",Cost);
         db2.update("MENUITEM", cv, "Id = ?", new String[]{String.valueOf(Id)});
         db2.close();
 
         return true;
     }
+
+
+    public JSONObject getProfile(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String jsonString = sp.getString("userObject", String.valueOf(MODE_PRIVATE));
+        UserModel uM = gson.fromJson(jsonString, UserModel.class);
+
+        JSONObject retObj = new JSONObject();
+        String Name = "";
+        String Email = "";
+        String Password = "";
+        String RestaurantName="";
+        String RestaurantLocation = "";
+
+
+        String query = "SELECT * FROM USER WHERE Id = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(uM.getId())});
+        if(cursor.moveToFirst()) {
+            Name = cursor.getString(3);
+            Email = cursor.getString(4);
+            Password = cursor.getString(5);
+        }
+
+        String query2 = "SELECT * FROM RESTAURANT WHERE Id = ?";
+        Cursor cursor2 = db.rawQuery(query2, new String[]{String.valueOf(uM.getRestaurantId())});
+        if(cursor2.moveToFirst()) {
+            RestaurantName = cursor2.getString(1);
+            RestaurantLocation = cursor2.getString(2);
+        }
+
+        try {
+            retObj.put("Name",Name);
+            retObj.put("Email",Email);
+            retObj.put("Password",Password);
+            retObj.put("RestaurantName",RestaurantName);
+            retObj.put("RestaurantLocation",RestaurantLocation);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return  retObj;
+
+    }
+
+    public Boolean updateuserdata(String profileName, String profilePassword, String profileRestaurantName, String profileRestaurantLocation) {
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            String jsonString = sp.getString("userObject", String.valueOf(MODE_PRIVATE));
+            UserModel uM = gson.fromJson(jsonString, UserModel.class);
+
+//            String query = "UPDATE USER SET Name = ? AND Password = ? WHERE Id = ?";
+//            db.execSQL(query, new String[]{profileName, profilePassword, String.valueOf(uM.getId())});
+//
+//            String query2 = "UPDATE Restaurant SET Name = ? AND Location = ? WHERE Id = ?";
+//            db.execSQL(query2, new String[]{profileRestaurantName, profileRestaurantLocation, String.valueOf(uM.getRestaurantId())});
+
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("Name",profileName);
+            contentValues.put("Password",profilePassword);
+            long result=db.update("USER",contentValues,"Id = ?",new String[]{String.valueOf(uM.getId())});
+
+            ContentValues contentValues2 = new ContentValues();
+            contentValues2.put("Name",profileRestaurantName);
+            contentValues2.put("Location",profileRestaurantLocation);
+            long result2=db.update("RESTAURANT",contentValues2,"Id = ?",new String[]{String.valueOf(uM.getRestaurantId())});
+
+            db.close();
+
+            uM.setName(profileName);
+            uM.setPassword(profilePassword);
+            String jsonString2 = gson.toJson(uM);
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putString("userObject", jsonString2);
+            editor.commit();
+
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+    }
+    //order id i have added .pass it to activity
+    public Boolean feedbackData(int feedbackRating, String feedbackMessage,String orderID){
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("FeedbackRating",feedbackRating);
+        contentValues.put("FeedbackMessage",feedbackMessage);
+
+        long result=DB.update("ORDERS",contentValues,"Id = ?",new String[]{orderID});
+        if(result==-1){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
 
 
     public String selectAllUser() {
@@ -520,6 +627,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return "";
     }
+
+
+
+
+
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
