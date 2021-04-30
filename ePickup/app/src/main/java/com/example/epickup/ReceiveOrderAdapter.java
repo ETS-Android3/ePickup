@@ -73,15 +73,17 @@ public class ReceiveOrderAdapter extends ArrayAdapter<JSONObject> {
             payment.setText("Total: $" + currentOrder.get("payment"));
 
             Button preparedButton = listItem.findViewById(R.id.preparedButton);
-            if(currentOrder.get("status").equals("Prepared")){
+            if(String.valueOf(currentOrder.get("status")).equals("Prepared")){
                 preparedButton.setEnabled(false);
+            } else {
+                preparedButton.setEnabled(true);
             }
             preparedButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v){
                     try {
                         databaseHelper.changeOrderStatus((Integer) currentOrder.get("orderId"));
-                        preparedButton.setEnabled(false);
+//                        preparedButton.setEnabled(false);
                         if (mContext instanceof OrdersReceivedActivity) {
                             ((OrdersReceivedActivity)mContext).reloadList();
                         }

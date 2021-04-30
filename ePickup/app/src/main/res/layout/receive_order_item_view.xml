@@ -2,6 +2,7 @@
 
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -11,9 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:textSize="22sp"
-        android:textFontWeight="5"
-         />
+        android:fontFamily="sans-serif-black"
+        android:textSize="18sp"
+        tools:text="asd" />
 
     <TextView
         android:id="@+id/textView2"
@@ -21,7 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textView1"
         android:layout_marginStart="5dp"
-        android:textSize="20sp" />
+        android:textSize="14sp"
+        tools:text="asd" />
 
 
     <LinearLayout
@@ -37,7 +39,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textView2"
             android:layout_marginStart="5dp"
-            android:textSize="20sp" />
+            android:textSize="14sp"
+            tools:text="asd" />
 
         <Button
             android:id="@+id/preparedButton"
@@ -59,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textView3"
         android:layout_marginStart="5dp"
-        android:textSize="20sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/textView5"
@@ -67,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textView4"
         android:layout_marginStart="5dp"
-        android:textSize="20sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/textView9"
@@ -75,7 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textView4"
         android:layout_marginStart="5dp"
-        android:textSize="20sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/textView11"
@@ -83,7 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textView4"
         android:layout_marginStart="5dp"
-        android:textSize="20sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/textView10"
@@ -91,6 +94,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textView4"
         android:layout_marginStart="5dp"
-        android:textSize="20sp" />
+        android:textSize="14sp" />
 
 </LinearLayout>

@@ -27,7 +27,8 @@ public class feedbackActivity extends AppCompatActivity {
         mFeedback = (EditText) findViewById(R.id.feedback);
         mSendFeedback= (Button) findViewById(R.id.fBtn);
 
-//        mRatingScale.setTypeface(mRatingScale.getTypeface(), Typeface.BOLD);
+        Intent myIntent = getIntent(); // gets the previously created intent
+        String orderId = myIntent.getStringExtra("Id");
 
         db = new DatabaseHelper(this);
         mRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
@@ -64,7 +65,7 @@ public class feedbackActivity extends AppCompatActivity {
                 } else {
                     String feedbackmessage=mFeedback.getText().toString();
                     int feedbackRating = (int)mRatingBar.getRating();
-                    String orderId = "1";
+//                    String orderId = "1";
                     boolean checkfeedback = db.feedbackData(feedbackRating,feedbackmessage,orderId);
                     if(checkfeedback==true){
                         mFeedback.setText("");

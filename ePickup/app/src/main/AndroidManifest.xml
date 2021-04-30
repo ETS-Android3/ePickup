@@ -9,8 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EPickup">
-        <activity android:name=".feedbackActivity" android:label="Feedback" />
-        <activity android:name=".OrdersReceivedActivity"></activity>
+        <activity
+            android:name=".forgotPassword"
+            android:label="Reset Password" />
+        <activity
+            android:name=".PaymentActivity"
+            android:label="Payment" />
+        <activity
+            android:name=".ViewRestaurantActivity"
+            android:label="Restaurant" />
+        <activity
+            android:name=".feedbackActivity"
+            android:label="Feedback" />
+        <activity
+            android:name=".OrdersReceivedActivity"
+            android:label="Orders Received" />
         <activity
             android:name=".SearchRestaurantActivity"
             android:label="Search Restaurant" />
@@ -26,7 +39,9 @@
         <activity
             android:name=".HomeActivity"
             android:label="Home" />
-        <activity android:name=".register" />
+        <activity
+            android:name=".register"
+            android:label="Register" />
         <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/app_name">

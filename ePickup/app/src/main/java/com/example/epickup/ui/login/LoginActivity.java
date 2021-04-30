@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -24,6 +25,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.epickup.DatabaseHelper;
 import com.example.epickup.HomeActivity;
 import com.example.epickup.R;
+import com.example.epickup.forgotPassword;
 import com.example.epickup.register;
 
 public class LoginActivity extends AppCompatActivity {
@@ -32,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     DatabaseHelper databaseHelper;
     SharedPreferences sp;
 
+    AlertDialog.Builder alertBuilder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         final Button loginButton = findViewById(R.id.login);
         final Button registerButton = findViewById(R.id.registerNow);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
-
+        final TextView fPass = findViewById(R.id.fPass);
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -123,33 +126,50 @@ public class LoginActivity extends AppCompatActivity {
 //                loadingProgressBar.setVisibility(View.VISIBLE);
 //                loginViewModel.login(usernameEditText.getText().toString(),
 //                        passwordEditText.getText().toString());
-
-                String[] creds = new String[] {usernameEditText.getText().toString(),passwordEditText.getText().toString()};
-                DatabaseHelper databaseHelper = new DatabaseHelper(LoginActivity.this);
-                boolean login_success = databaseHelper.login(creds);
-                if(login_success){
-                    Intent goIntent = new Intent(LoginActivity.this, HomeActivity.class);
-                    startActivity(goIntent);
-                } else {
-                    Toast.makeText(getApplicationContext(),"Credentials invalid.",Toast.LENGTH_LONG).show();
-                }
+                boolean check = databaseHelper.isValidEmail(usernameEditText.getText().toString());
+//                if (!check) {
+//                    alertBuilder = new AlertDialog.Builder(LoginActivity.this);
+//                    alertBuilder.setMessage("Please enter the valid Email ID !");
+//                    alertBuilder.setPositiveButton("OKAY", (arg0, arg1) -> {
+//                    });
+//                    AlertDialog alertDialog = alertBuilder.create();
+//                    alertDialog.show();
+//                } else {
+                    String[] creds = new String[]{usernameEditText.getText().toString(), passwordEditText.getText().toString()};
+                    DatabaseHelper databaseHelper = new DatabaseHelper(LoginActivity.this);
+                    boolean login_success = databaseHelper.login(creds);
+                    if (login_success) {
+                        Intent goIntent = new Intent(LoginActivity.this, HomeActivity.class);
+                        startActivity(goIntent);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Credentials invalid.", Toast.LENGTH_LONG).show();
+                    }
+//                }
 
             }
         });
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 Intent registerIntent = new Intent(LoginActivity.this, register.class);
                 startActivity(registerIntent);
             }
         });
 
-        SharedPreferences sp = getSharedPreferences("sp",MODE_PRIVATE);
-        String userObjectString = sp.getString("userObject", String.valueOf(MODE_PRIVATE));
-        if(userObjectString.equals("0")){
+        fPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent forgotPasswordIntent = new Intent(LoginActivity.this, forgotPassword.class);
+                startActivity(forgotPasswordIntent);
+            }
+        });
 
-        } else{
+        SharedPreferences sp = getSharedPreferences("sp", MODE_PRIVATE);
+        String userObjectString = sp.getString("userObject", String.valueOf(MODE_PRIVATE));
+        if (userObjectString.equals("0")) {
+
+        } else {
             Intent goIntent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(goIntent);
         }

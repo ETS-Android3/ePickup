@@ -20,6 +20,7 @@ import com.example.epickup.ui.login.LoginActivity;
 public class register extends AppCompatActivity {
 
     DatabaseHelper databaseHelper;
+    AlertDialog.Builder alertBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,39 +63,46 @@ public class register extends AppCompatActivity {
 
 
         registerButton.setOnClickListener(v -> {
-
-            UserModel userModel;
-
-            int selectedId = radioGroup.getCheckedRadioButtonId();
-
-            RadioButton radioButton = (RadioButton) findViewById(selectedId);
-            int roleId;
-            int restId = -1;
-            if(radioButton.getText().toString().equals("User")){
-                roleId = 1;
+            boolean check = databaseHelper.isValidEmail(email.getText().toString());
+            if (!check) {
+                alertBuilder = new AlertDialog.Builder(register.this);
+                alertBuilder.setMessage("Please enter the valid Email ID !");
+                alertBuilder.setPositiveButton("OKAY", (arg0, arg1) -> {
+                });
+                AlertDialog alertDialog = alertBuilder.create();
+                alertDialog.show();
             } else {
-                roleId = 2;
-                String[] restaurantInfo = {
-                    restaurantName.getText().toString(), restaurantLocation.getText().toString()
-                };
-                restId = databaseHelper.registerRestaurant(restaurantInfo);
+                UserModel userModel;
+
+                int selectedId = radioGroup.getCheckedRadioButtonId();
+
+                RadioButton radioButton = (RadioButton) findViewById(selectedId);
+                int roleId;
+                int restId = -1;
+                if (radioButton.getText().toString().equals("User")) {
+                    roleId = 1;
+                } else {
+                    roleId = 2;
+                    String[] restaurantInfo = {
+                            restaurantName.getText().toString(), restaurantLocation.getText().toString()
+                    };
+                    restId = databaseHelper.registerRestaurant(restaurantInfo);
+                }
+
+
+                userModel = new UserModel(-1, roleId, restId, name.getText().toString(), email.getText().toString(), password.getText().toString(), 0);
+                boolean success = databaseHelper.register(userModel);
+
+                alertDialogBuilder.setMessage("Congratulations! You are registered. Please login to continue.");
+                alertDialogBuilder.setPositiveButton("OKAY", (arg0, arg1) -> {
+                    Intent loginIntent = new Intent(register.this, LoginActivity.class);
+                    startActivity(loginIntent);
+                });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.setCancelable(false);
+                alertDialog.show();
             }
-
-
-
-
-            userModel = new UserModel(-1, roleId,  restId, name.getText().toString(), email.getText().toString(), password.getText().toString(), 0);
-            boolean success = databaseHelper.register(userModel);
-
-            alertDialogBuilder.setMessage("Congratulations! You are registered. Please login to continue.");
-            alertDialogBuilder.setPositiveButton("OKAY", (arg0, arg1) -> {
-                Intent loginIntent = new Intent(register.this, LoginActivity.class);
-                startActivity(loginIntent);
-            });
-
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            alertDialog.show();
-
 
         });
 

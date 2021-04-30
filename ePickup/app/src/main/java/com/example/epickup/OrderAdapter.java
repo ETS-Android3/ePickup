@@ -54,7 +54,6 @@ public class OrderAdapter extends ArrayAdapter<JSONObject> {
         try {
             TextView restaurantName = (TextView) listItem.findViewById(R.id.textView1);
             restaurantName.setText(String.valueOf(currentOrder.get("restaurantName")));
-//            restaurantName.setTypeface(restaurantName.getTypeface(), Typeface.BOLD);
 
             TextView orderId = (TextView) listItem.findViewById(R.id.textView2);
             orderId.setText("Order Id: " + String.valueOf(currentOrder.get("orderId")));
@@ -80,6 +79,7 @@ public class OrderAdapter extends ArrayAdapter<JSONObject> {
                 public void onClick(View v){
                     try {
                         Intent goIntent = new Intent(mContext, feedbackActivity.class);
+                        goIntent.putExtra("Id", String.valueOf(currentOrder.get("orderId")));
                         mContext.startActivity(goIntent);
                     } catch (Exception e) {
                         e.printStackTrace();
