@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewRestaurantActivity">
+    tools:context=".ViewRestaurantActivity"
+    android:background="@drawable/img3">
 
     <TextView
         android:id="@+id/textView15"
@@ -14,7 +15,11 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="sans-serif-black"
-        android:textSize="18sp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -38,8 +43,18 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="sans-serif-black"
+
             android:text="Item"
-            android:textSize="14sp" />
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
+            android:shadowColor="@color/white"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/white"
+            android:textColorHighlight="@color/white"
+            android:textColorHint="@color/white"
+            android:textColorLink="@color/white"
+            android:textCursorDrawable="@color/white"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/textView19"
@@ -47,8 +62,17 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="sans-serif-black"
+            android:shadowColor="@color/white"
+            android:backgroundTint="@color/white"
             android:text="Cost"
-            android:textSize="14sp" />
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textColorHighlight="@color/white"
+            android:textColorHint="@color/white"
+            android:textColorLink="@color/white"
+            android:textCursorDrawable="@color/white"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/textView20"
@@ -57,8 +81,15 @@
             android:layout_weight="1"
             android:fontFamily="sans-serif-black"
             android:gravity="right"
+            android:shadowColor="@color/white"
             android:text="Quantity"
-            android:textSize="14sp" />
+            android:backgroundTint="@color/white"
+            android:textColor="@color/white"
+            android:textColorHighlight="@color/white"
+            android:textColorHint="@color/white"
+            android:textColorLink="@color/white"
+            android:textCursorDrawable="@color/white"
+            android:textSize="24sp" />
     </LinearLayout>
 
     <ListView
@@ -67,6 +98,7 @@
         android:layout_height="403dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".register">
+    tools:context=".register"
+    android:background="@drawable/img8">
 
 
     <EditText
@@ -67,6 +68,9 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="37dp"
         android:text="Select Role"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/radioGroup"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -93,7 +97,7 @@
             android:id="@+id/manager"
             android:layout_width="161dp"
             android:layout_height="wrap_content"
-            android:text="Manager" />
+            android:text="Owner" />
 
     </RadioGroup>
 
@@ -106,6 +110,9 @@
         android:layout_marginEnd="320dp"
         android:layout_marginBottom="26dp"
         android:text="Restaurant"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/restaurantName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

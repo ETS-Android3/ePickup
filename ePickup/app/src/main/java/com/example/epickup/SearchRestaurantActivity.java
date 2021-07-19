@@ -67,5 +67,10 @@ public class SearchRestaurantActivity extends AppCompatActivity {
             searchRestaurantAdapter searchArrayAdapter = new searchRestaurantAdapter(this, searchResults);
             searchRestaurantListView.setAdapter(searchArrayAdapter);
         }
+        else{
+
+        }
+
+
     }
 }

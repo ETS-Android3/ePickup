@@ -20,6 +20,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="left"
+
+            android:shadowColor="@color/white"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/white"
+            android:textColorHighlight="@color/white"
+            android:textColorHint="@color/white"
+            android:textColorLink="@color/white"
+            android:textCursorDrawable="@color/white"
             tools:text="asd" />
 
         <TextView
@@ -27,7 +35,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="left"
+            android:backgroundTint="@color/white"
+            android:shadowColor="@color/white"
+            android:textAlignment="viewStart"
+            android:textColor="@color/white"
+            android:textColorHighlight="@color/white"
+            android:textColorHint="@color/white"
+            android:textColorLink="@color/white"
+            android:textCursorDrawable="@color/white"
             tools:text="asd" />
 
         <EditText
@@ -36,9 +51,17 @@
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:ems="2"
+            android:backgroundTint="@color/white"
             android:gravity="left"
             android:inputType="number"
             android:selectAllOnFocus="true"
+            android:shadowColor="@color/white"
+
+            android:textColor="@color/white"
+            android:textColorHighlight="@color/white"
+            android:textColorHint="@color/white"
+            android:textColorLink="@color/white"
+            android:textCursorDrawable="@color/white"
             tools:text="88" />
 
     </LinearLayout>

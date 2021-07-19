@@ -75,7 +75,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
         // Dummy Data
-        String insertMenu = "INSERT INTO  MENUITEM (Id, RestaurantId, Name, Cost) VALUES (?,?,?,?)";
+        /*String insertMenu = "INSERT INTO  MENUITEM (Id, RestaurantId, Name, Cost) VALUES (?,?,?,?)";
         db.execSQL(insertMenu, new Object[]{1, 1, "item1", "5"});
         db.execSQL(insertMenu, new Object[]{2, 1, "item2", "4"});
 
@@ -86,7 +86,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String insertOrderItem = "INSERT INTO  ORDERITEM (Id, MenuItemId, OrderId, Quantity) VALUES (?,?,?,?)";
         db.execSQL(insertOrderItem, new Object[]{1, 1, 1, 2});
-        db.execSQL(insertOrderItem, new Object[]{2, 2, 1, 1});
+        db.execSQL(insertOrderItem, new Object[]{2, 2, 1, 1});*/
 
         // Time calculation
 //        try {
@@ -200,7 +200,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             SharedPreferences.Editor editor = sp.edit();
             editor.remove("userObject");
             editor.commit();
-
+            
             String asd = sp.getString("userObject", String.valueOf(MODE_PRIVATE));
             return true;
         } catch (Exception e) {

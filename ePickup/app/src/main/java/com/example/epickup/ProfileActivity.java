@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.epickup.data.model.UserModel;
@@ -19,6 +20,7 @@ import org.json.JSONObject;
 public class ProfileActivity extends AppCompatActivity {
 
     EditText profileName,profileEmail,profilePassword,profileRestaurantName,profileRestaurantLocation;
+    TextView SprofileName,SprofileEmail,SprofilePassword,SprofileRestaurantN,SprofileRestaurantL;
     Button update;
     DatabaseHelper db;
     SharedPreferences sp;
@@ -33,6 +35,8 @@ public class ProfileActivity extends AppCompatActivity {
         profilePassword=findViewById(R.id.profilePassword);
         profileRestaurantName=findViewById(R.id.profileRestaurantName);
         profileRestaurantLocation=findViewById(R.id.profileRestaurantLocation);
+        SprofileRestaurantN= findViewById(R.id.SprofileRestaurantN);
+        SprofileRestaurantL= findViewById(R.id.SprofileRestaurantL);
         update = findViewById(R.id.profileUpdate);
         db = new DatabaseHelper(this);
         sp = this.getSharedPreferences("sp", MODE_PRIVATE);
@@ -44,9 +48,13 @@ public class ProfileActivity extends AppCompatActivity {
         if(uM.getRoleId()==1){
         profileRestaurantName.setVisibility(View.GONE);
         profileRestaurantLocation.setVisibility(View.GONE);
+            SprofileRestaurantN.setVisibility(View.GONE);
+            SprofileRestaurantL.setVisibility(View.GONE);
         } else {
             profileRestaurantName.setVisibility(View.VISIBLE);
             profileRestaurantLocation.setVisibility(View.VISIBLE);
+            SprofileRestaurantN.setVisibility(View.VISIBLE);
+            SprofileRestaurantL.setVisibility(View.VISIBLE);
         }
 
 

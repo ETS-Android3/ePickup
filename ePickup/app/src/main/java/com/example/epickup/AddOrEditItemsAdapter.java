@@ -55,7 +55,7 @@ public class AddOrEditItemsAdapter extends ArrayAdapter<JSONObject>{
             TextView name = (TextView) listItem.findViewById(R.id.textView8);
             name.setText(String.valueOf(currentItem.get("Name")));
             TextView cost = (TextView) listItem.findViewById(R.id.textView9);
-            cost.setText(String.valueOf(currentItem.get("Cost")));
+            cost.setText("$"+String.valueOf(currentItem.get("Cost")));
 
             Button deleteItemButton = listItem.findViewById(R.id.deleteItemButton);
             deleteItemButton.setOnClickListener(new View.OnClickListener() {

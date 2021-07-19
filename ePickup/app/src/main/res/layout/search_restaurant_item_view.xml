@@ -12,6 +12,14 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-black"
         android:textSize="18sp"
+
+        android:shadowColor="@color/white"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/white"
+        android:textColorHighlight="@color/white"
+        android:textColorHint="@color/white"
+        android:textColorLink="@color/white"
+        android:textCursorDrawable="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,8 +27,16 @@
 
     <TextView
         android:id="@+id/textView13"
+
         android:layout_width="0dp"
+        android:backgroundTint="@color/white"
         android:layout_height="wrap_content"
+        android:shadowColor="@color/white"
+        android:textColor="@color/white"
+        android:textColorHighlight="@color/white"
+        android:textColorHint="@color/white"
+        android:textColorLink="@color/white"
+        android:textCursorDrawable="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView12"
